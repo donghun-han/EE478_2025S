@@ -1,0 +1,14 @@
+<launch>
+    <env name="GAZEBO_MODEL_PATH" value="$(find ee478_px4_sim)/models:$GAZEBO_MODEL_PATH" />
+
+    <arg name="world" default="$(find mavlink_sitl_gazebo)/worlds/empty.world" />
+    <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/iris_depth_camera/iris_depth_camera.sdf" />
+
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+        <arg name="world" value="$(arg world)" />
+        <arg name="sdf" value="$(arg sdf)" />
+    </include>
+
+    <node pkg="ee478_px4_sim" type="spawn_gate.py" name="spawn_apriltag_node" output="screen" />
+
+</launch>
